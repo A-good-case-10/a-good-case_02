@@ -1,0 +1,91 @@
+<section class="saedan">
+  <div class="saedan-card">
+    <h2 class="saedan-title">Sådan fungerer det:</h2>
+
+    <ol class="saedan-list">
+      <li>Bryggerier har restpartier af øl</li>
+      <li>Vi opkøber det, før det går til spilde</li>
+      <li>Du får kvalitetsøl til en skarp pris</li>
+    </ol>
+  </div>
+</section>
+
+<style>
+  .saedan {
+    display: flex;
+    justify-content: center;
+    padding: 3rem 1.25rem 6rem;
+    position: relative;
+    z-index: 2;
+    background-color: #f7f6f2;
+  }
+
+  .saedan-card {
+    width: 100%;
+    max-width: 600px;
+    background-color: #ffffff;
+    border-radius: 2rem;
+    padding: 4rem 4.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 420px;
+  }
+
+.saedan-card {
+  width: 100%;
+  max-width: 700px;
+  background-color: #ffffff;
+  border-radius: 2rem;
+  padding: 1.1rem 3.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+  .saedan-title {
+    margin: 0 0 2.5rem;
+    text-align: center;
+    color: #1f7a4f;
+    font-size: 2rem;
+    font-weight: 400;
+    text-decoration: underline;
+    text-underline-offset: 10px;
+  }
+
+  .saedan-list {
+    list-style-position: inside;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+
+  .saedan-list li {
+    margin-bottom: 2rem;
+    font-size: 1.3rem;
+    line-height: 1.8;
+  }
+
+  .saedan-list li:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    .saedan-card {
+      padding: 2.5rem 2rem;
+      min-height: auto;
+    }
+
+    .saedan-title {
+      font-size: 2rem;
+    }
+
+    .saedan-list li {
+      font-size: 1.1rem;
+    }
+  }
+</style>

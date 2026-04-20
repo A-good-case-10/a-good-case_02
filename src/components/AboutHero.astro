@@ -1,0 +1,40 @@
+---
+const {
+  background = "/public/om_os_hero_billede.jpg",
+  alt = "Om os hero billede"
+} = Astro.props;
+---
+
+<section class="about-hero" aria-label={alt}>
+  <img class="about-hero__image" src={background} alt={alt} />
+  <div class="about-hero__bar"></div>
+</section>
+
+<style>
+  .about-hero {
+    width: 100%;
+  }
+
+  .about-hero__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .about-hero__bar {
+    width: 100%;
+    height: 8px;
+    background-color: #4f8b6d;
+  }
+
+  @media (min-width: 768px) {
+    .about-hero__image {
+      max-height: 720px;
+    }
+
+    .about-hero__bar {
+      height: 10px;
+    }
+  }
+</style>
