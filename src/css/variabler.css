@@ -1,0 +1,14 @@
+:root {
+  /* primære farver */
+  --farve-primær: #186c43;
+  --farve-accent: #77e438;
+
+  /* sekundære */
+  --farve-lys-grøn: #e3f2e1;
+
+  /* base */
+  --farve-hvid: #ffffff;
+  --farve-sort: #000000;
+}
+
+/* --farve-lys-grøn: #e3f2e1; en lysere grøn, som bruges til kategori-buttons på produktsiden, sammen med --farve-primær til border og font-color*/
