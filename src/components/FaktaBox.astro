@@ -1,34 +1,34 @@
-<section class="fakta">
-  <div class="fakta-wrap">
+<section class="facts">
+  <div class="facts-wrap">
 
-    <article class="fakta-boks">
-      <h3 class="fakta-overskrift">Mindre spild – samme gode smag</h3>
-      <p class="fakta-tekst">
+    <article class="facts-card">
+      <h3 class="facts-title">Mindre spild – samme gode smag</h3>
+      <p class="facts-text">
         Vi arbejder for at reducere spild ved at give øl en ekstra chance.
         Det betyder mindre spild af ressourcer – og flere gode oplevelser for dig.
       </p>
-      <p class="fakta-tekst">
+      <p class="facts-text">
         Vi samarbejder med nogle af de bedste bryggerier, og kvaliteten er altid i fokus.
       </p>
     </article>
 
-    <article class="fakta-boks">
-      <h3 class="fakta-overskrift">Mennesker bag</h3>
-      <p class="fakta-tekst">
+    <article class="facts-card">
+      <h3 class="facts-title">Mennesker bag</h3>
+      <p class="facts-text">
         Hos A Good Case handler det ikke kun om øl.
       </p>
-      <p class="fakta-tekst">
+      <p class="facts-text">
         Vi samarbejder med unge og voksne, der har haft svært ved at komme ind på arbejdsmarkedet,
         og giver dem en ny mulighed gennem arbejdet hos os.
       </p>
     </article>
 
-    <article class="fakta-boks">
-      <h3 class="fakta-overskrift">Et udvalg der altid skifter</h3>
-      <p class="fakta-tekst">
+    <article class="facts-card">
+      <h3 class="facts-title">Et udvalg der altid skifter</h3>
+      <p class="facts-text">
         Vores sortiment ændrer sig hele tiden.
       </p>
-      <p class="fakta-tekst">
+      <p class="facts-text">
         Det betyder, at du altid kan finde nye og spændende øl – men til samme høje kvalitet.
       </p>
     </article>
@@ -37,14 +37,14 @@
 </section>
 
 <style>
-  .fakta {
+  .facts {
     position: relative;
     padding: 1rem 1.25rem 6rem;
-    background-color: #f7f6f2;
+    background-color: var(--farve-hvid);
     z-index: 2;
   }
 
-  .fakta-wrap {
+  .facts-wrap {
     max-width: 980px;
     margin: 0 auto;
     display: flex;
@@ -52,47 +52,47 @@
     gap: 2.5rem;
   }
 
-  .fakta-boks {
-    background-color: #ffffff;
+  .facts-card {
+    background-color: var(--farve-hvid);
     border-radius: 2rem;
     padding: 3.5rem 4rem;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
   }
 
-  .fakta-overskrift {
+  .facts-title {
     margin: 0 0 0.75rem;
     font-size: 1.4rem;
     font-weight: 700;
     line-height: 1.2;
-    color: #111111;
+    color: var(--farve-sort);
   }
 
-  .fakta-tekst {
+  .facts-text {
     margin: 0 0 0.5rem;
     font-size: 1.2rem;
     line-height: 1.6;
-    color: #1f1f1f;
+    color: var(--farve-sort);
   }
 
-  .fakta-tekst:last-child {
+  .facts-text:last-child {
     margin-bottom: 0;
   }
 
   @media (max-width: 768px) {
-    .fakta {
+    .facts {
       padding: 1rem 1rem 4rem;
     }
 
-    .fakta-boks {
+    .facts-card {
       padding: 2rem 1.5rem;
       border-radius: 1.5rem;
     }
 
-    .fakta-overskrift {
+    .facts-title {
       font-size: 1.5rem;
     }
 
-    .fakta-tekst {
+    .facts-text {
       font-size: 1.05rem;
     }
   }
