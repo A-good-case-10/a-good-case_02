@@ -1,0 +1,454 @@
+---
+//@ts-nocheck
+import Layout from "../../layouts/Layout.astro";
+import Pcard from "../../components/p-card.astro";
+
+// bygger alle produktsider + sender data med
+export async function getStaticPaths() {
+  const endpoint =
+    "https://majobbnhdeqzlgfmufao.supabase.co/rest/v1/final-beerlist?select=*";
+
+  const options = {
+    headers: {
+      apikey: "sb_publishable_YFsAaTZu3QhYeyu5exnqCg_x9eNbtkN",
+    },
+  };
+
+  const data = await fetch(endpoint, options).then((res) => res.json());
+
+  return data.map((product) => ({
+    params: { id: product.id.toString() },
+    props: { product, data }, // sender hele listen med
+  }));
+}
+
+// modtag data fra getStaticPaths
+const { product, data } = Astro.props;
+---
+<Layout>
+<div class="product">
+
+  <!-- Produkt billede -->
+  <div class="image">
+    <img src={product["1stk-img"]} alt={product.product_name} />
+  </div>
+
+  <!-- info om produkt -->
+  <div class="info">
+    <p class="date">BEST BEFORE: {product.best_before}</p>
+
+    <h1>{product.brand} – {product.product_name}</h1>
+
+    <p class="subtitle">{product.øltype}</p>
+
+    <!-- pris -->
+    <div>
+      <p class="new-price">
+        {product["1stk-price"]} DKK
+      </p>
+
+      <p class="old-price">
+        <span class="line">{product["1stk-before_price"]} DKK</span>
+        <span class="vejl">(VEJL. MARKEDSPRIS)</span>
+      </p>
+    </div>
+
+    <!-- lager status -->
+    <span class={`stock1 ${product["1stk-stock"] >= 10 ? "green" : "orange"}`}>
+      {product["1stk-stock"] >= 10
+        ? `${product["1stk-stock"]}+ på lager`
+        : `Kun ${product["1stk-stock"]} tilbage`}
+    </span>
+
+    <!-- antal - 1stk eller 6stk -->
+    <p class="antal-label">ANTAL:</p>
+
+    <div class="antal-container">
+
+      <!-- 1 STK -->
+      <div class="antal-box active">
+ <span class="spar-badge">SPAR {product["1stk-spar"]} DKK</span>
+
+        <p>1 STK.</p>
+
+        <p class="old-box">
+          {product["1stk-before_price"]} DKK
+          <span>(VEJL. MARKEDSPRIS)</span>
+        </p>
+
+        <p class="new-box">
+          {product["1stk-price"]} DKK / STK.
+        </p>
+      </div>
+
+      <!-- 6 STK -->
+      <div class="antal-box">
+        <span class="spar-badge">SPAR {product["6stk-spar"]} DKK</span>
+
+        <p>6 STK.</p>
+
+        <p class="old-box">
+          {product["6stk-before_price"]} DKK
+          <span>(VEJL. MARKEDSPRIS)</span>
+        </p>
+
+        <p class="new-box">
+          {product["6stk-price"]} DKK / STK.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- antal + kurv knap -->
+    <div class="cta-wrapper">
+      <div class="buttons">
+        <button class="qty">6 stk. ›</button>
+        <button class="cta">LÆG I KURV</button>
+      </div>
+    </div>
+
+    <!-- flere detaljer -->
+    <div class="details-container">
+
+      <div class="row-3">
+        <div>
+          <span>TYPE</span>
+          <p>{product.øltype}</p>
+        </div>
+
+        <div>
+          <span>INDHOLD</span>
+          <p>{product.size}</p>
+        </div>
+
+        <div>
+          <span>ALKOHOL</span>
+          <p>{product.alkohol_procent}%</p>
+        </div>
+      </div>
+
+      <hr />
+
+      <div class="row-1">
+        <span>UNTAPPD RATING</span>
+        <p>{product.untapped_rating}</p>
+      </div>
+
+      <hr />
+
+      <div class="row-1">
+        <span>LAND</span>
+        <p>{product.land}</p>
+      </div>
+
+      <hr />
+
+      <div class="row-1">
+        <span>ALLEGENER</span>
+        <p>{product.allegener}</p>
+      </div>
+
+      <hr />
+
+      <p class="description">{product.beskrivelse}</p>
+
+    </div>
+  </div>
+</div>
+<!--  Relateret produkter -->
+<div class="related">
+  <h2>MÅSKE DU OGSÅ KAN LIDE</h2>
+
+  <div class="related-container"> <!-- 🔥 DENNE MANGLER OFTE -->
+    
+    <div class="related-grid">
+      {data
+        .filter((item) => item.id !== product.id)
+        .slice(0, 4)
+        .map((item) => (
+          <Pcard product={item} />
+      ))}
+    </div>
+
+  </div>
+</div>
+</Layout>
+  <!------- STYLING ------->
+<style>
+	/* Hele container */
+.product {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  padding: 20px;
+}
+/* produkt billede  */
+.image img {
+  width: 100%;
+  max-width: 350px;
+  display: block;
+  margin: 0 auto;
+}
+/* best-before dato*/
+.date {
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+/* brand + produkt navn */
+.info h1 {
+  font-size: 26px;
+  margin: 5px 0;
+    line-height: 1.2;
+}
+/* øl type*/
+.subtitle {
+  color: #666;
+    margin-bottom: 10px; 
+}
+
+/* ny pris */
+.new-price {
+  font-size: 24px;
+  font-weight: 500;
+    margin: 5px; 
+}
+
+/* gammel pris*/
+.old-price {
+  font-size: 18px;
+  color: #333;
+    margin: 0 0 7px;
+}
+
+/* streg over gammel pris*/
+.old-price .line {
+  text-decoration: line-through;
+  margin-right: 6px;
+}
+
+/* vejledende markedspris */
+.old-price .vejl {
+  color: #444;
+}
+/* --- lager antal --- */
+.stock1 {
+  font-size: 15px;
+  margin-top: 10px;
+}
+.green {
+  color: #2e7d32;
+}
+.orange {
+  color: #ff7a00;
+  font-style: italic;
+}
+/* --- 1stk eller 6stk bokse --- */
+.antal-label {
+  font-size: 18px;
+  letter-spacing: 1px;
+  margin: 20px 0 10px;
+}
+
+.antal-container{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.antal-box {
+  border: 2px solid #2e7d32;
+  padding: 20px;
+  position: relative;
+  background: #fff;
+}
+
+/* aktiv = den grønne boks */
+.antal-box.active{
+  background: #e9f7e9;
+}
+/* gammel pris i boks */
+.old-box {
+  font-size: 16px;
+  margin: 10px 0 5px;
+  color: #333;
+}
+/* vejledende markedspris i boks */
+.old-box span {
+  font-size: 14px;
+  color: #666;
+}
+
+/* ny pris i boks */
+.new-box {
+  font-size: 26px;
+  font-weight: bold;
+  margin: 0;
+}
+/* spar */
+.spar-badge {
+ position: absolute;
+  top: 0;      
+  right: 0;     
+  background: #6ee02f;
+  color: white;
+  padding: 6px 12px;
+  font-size: 12px;
+}
+/* --- Antal og køb knapperne --- */
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+/* antal */
+.qty {
+  border: 1px solid #2e7d32;
+  background: white;
+  padding: 10px 15px;
+  border-radius: 12px;
+}
+
+/* kurv */
+.cta {
+  flex: 1;
+  background: #6ee02f;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  padding: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.cta:hover {
+  background: #2e7d32;
+  color: white;
+    transform: scale(1.02);
+  
+}
+/* --- Flere detaljer --- */
+.details-container {
+  margin-top: 30px;
+  max-width: 500px;   /* 🔥 gør den smallere */
+  margin-left: auto;
+  margin-right: auto; /* 🔥 centrerer */
+}
+
+/* overskift labels */
+.details-container span {
+  font-size: 11px;
+  color: #777;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px; 
+}
+/* data teksten */
+.details-container p {
+  font-size: 18px;
+  margin: 0;              
+  line-height: 1;       
+  transform: translateY(5px); /* gør så teksten kan stå lige på linjen*/
+}
+
+/* øverste række: type, indhold, alkohol*/
+.row-3 {
+   display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 5px; 
+}
+
+/* række: untapped rating, land, allegener */
+.row-1 {
+ margin: 10px 0;
+margin-bottom: 5px; 
+}
+
+/* linjerne */
+.details-container hr {
+  border: none;
+  border-top: 2px solid #2e7d32;
+  margin: 0 0 14px;
+}
+/* beskrivelse tekst */
+.description {
+  margin-top: 15px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+/* --- MÅSKE DU OGSÅ KAN LIDE - SEKTION--- */
+.related-container {
+  max-width: 1200px;  
+  margin: 0 auto;
+  padding: 0 20px;
+}
+  
+.related-grid {
+   display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  justify-items: center; 
+}
+.related {
+margin-top: 60px;
+  padding: 20px 0; /* 🔥 fjern side padding */
+}
+
+.related h2 {
+  text-align: center;
+  color: #2e7d32;
+  font-size: 22px;
+  letter-spacing: 2px;
+  margin-bottom: 25px;
+  text-decoration: underline;
+}
+
+/* desktop */
+@media (min-width: 1200px) {
+  .product {
+    grid-template-columns: 1fr 1fr;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: start;
+  }
+  /* produkt billede  */
+     .image {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: 100px;         /* skubber billedet længere ned  */
+  }
+  .image img {
+    max-width: 450px;
+    width: 100%;
+  }
+   /* øverste info */
+  .info {
+    max-width: 500px;
+  }
+  /* antal bokse side om side*/
+  .antal-container {
+    flex-direction: row;
+    gap: 15px;
+  }
+  .antal-box {
+    flex: 1;
+	  padding: 12px; 
+  }
+  /* Flere detaljer */
+  .details-container {
+    max-width: 100%;
+    margin-top: 30px;
+  }
+/* --- MÅSKE DU OGSÅ KAN LIDE - SEKTION--- */
+   .related-grid {
+   display: grid;
+  grid-template-columns: repeat(4, 340px);
+  justify-content: center;
+  gap: 1.5rem;
+}
+  
+  
+}
+</style>

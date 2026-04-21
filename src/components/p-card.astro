@@ -1,0 +1,210 @@
+---
+const { product } = Astro.props;
+---
+
+<a href={`/details/${product.id}`} class="card-link">
+  <div class="card">
+    
+    <!-- produkt billede + spar badge -->
+    <div class="image">
+      {product["1stk-spar"] && (
+        <div class="badge">SPAR {product["1stk-spar"]} DKK</div>
+      )}
+      <img src={product["1stk-img"]} alt={product.product_name} />
+    </div>
+
+    <!-- info -->
+    <div class="info">
+
+      <!-- lager + best before -->
+      <div class="top">
+        <span class={`stock ${product["1stk-stock"] >= 10 ? "green" : "orange"}`}>
+          {product["1stk-stock"] >= 10
+            ? `${product["1stk-stock"]}+ på lager`
+            : `Kun ${product["1stk-stock"]} tilbage`}
+        </span>
+
+        <span class="date">
+          BEST BEFORE: {product.best_before}
+        </span>
+      </div>
+
+      <!-- brand + produkt navn -->
+      <h3>{product.brand} – {product.product_name}</h3>
+
+      <!-- alkohol + øltype  -->
+      <p class="subtitle">
+        {product.alkohol_procent}% - {product.øltype}
+      </p>
+
+      <hr />
+
+      <!-- pris -->
+      <div class="price">
+        <span class="from">FRA</span>
+        <span class="new">{product["1stk-price"]} DKK</span>
+        <span class="dash">-</span>
+        <span class="old">{product["1stk-before_price"]} DKK</span>
+      </div>
+
+      <!-- antal + kurv knap -->
+      <div class="buttons">
+        <button class="qty">6 stk. ›</button>
+        <button class="cta">LÆG I KURV</button>
+      </div>
+
+    </div>
+  </div>
+</a>
+
+<style>
+.card {
+  border-radius: 20px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    height: 100%; 
+       max-width: 340px; 
+}
+
+/* produkt billede */
+.image {
+  position: relative;
+  background: #e9efe9;
+  padding: 30px;
+  text-align: center;
+}
+.image img {
+  max-height: 300px;
+  object-fit: contain;
+    margin-top: 25px; 
+}
+
+/* spar badge */
+.badge {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: #6ee02f;
+  color: white;
+  padding: 6px 12px;   /* 🔥 mindre */
+  border-radius: 7px; /* 🔥 mindre rund */
+  font-size: 13px;     /* 🔥 mindre tekst */
+}
+
+.info {
+  padding: 20px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+/* lager */
+.stock {
+  font-size: 13px;
+}
+.green {
+  color: #2e7d32;
+}
+.orange {
+  color: #ff7a00;
+  font-style: italic;
+}
+
+/* dato */
+.date {
+  color: #777;
+}
+
+/* brand + produkt navn */
+h3 {
+   font-size: 18px;
+  margin: 10px 0;
+  min-height: 44px; 
+}
+
+/* alkohol + øltype */
+.subtitle {
+  color: #666;
+  font-size: 14px;
+}
+
+/* streg */
+hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 15px 0;
+}
+
+/* pris */
+.price {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.from {
+  font-size: 14px;
+  color: #777;
+}
+.new {
+  font-size: 19px;
+  font-weight: bold;
+  color: #2e7d32;
+}
+.dash {
+  font-size: 20px;
+}
+.old {
+  font-size: 20px;
+  text-decoration: line-through;
+  color: #999;
+}
+
+/* antal + kurv knap */
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.qty {
+  border: 1px solid #2e7d32;
+  background: white;
+  padding: 10px 15px;
+  border-radius: 12px;
+}
+
+.cta {
+  flex: 1;
+  background: #6ee02f;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  padding: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.cta:hover {
+  background: #2e7d32;
+  transform: scale(1.02);
+}
+
+/* gør hele kort klikbart */
+.card-link {
+  text-decoration: none;
+  color: inherit;
+    display: block;
+  width: 100%;
+}
+/* desktop */
+@media (min-width: 1200px) {
+
+    
+}
+</style>
