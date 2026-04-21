@@ -1,3 +1,239 @@
 ---
-import layout from '../layouts/Layout.astro';
+import Layout from '../layouts/Layout.astro';
 ---
+
+<Layout>
+<div class="bg">
+    <img src="/billeder/langarm.png" alt="baggrund">
+</div>
+
+    <section class="hero">
+<img src="/billeder/hero.png" alt="hero">
+    </section>
+  
+<section class="info">
+<img class="info-img" src="/billeder/mand.png" alt="info">
+<div class="info-text">
+<p><span class="info-title">A Good Case</span> er en dansk virksomhed, der opkøber og videresælger specialøl, som ellers risikerer at blive smidt ud – typisk fordi de nærmer sig bedst før-datoen eller har mindre fejl. 
+Virksomheden fungerer som et bindeled mellem bryggerier og forbrugere og har et stærkt fokus på bæredygtighed og reduktion af madspild. Samtidig tilbyder de løsninger til virksomheder, såsom levering af øl til events, fredagsbarer og firmafester samt opsætning af selvbetjeningskøleskabe med øl.</p>
+</div>
+</section>
+
+<section class="nyheder">
+<h2>NYHEDER</h2>
+<span></span>
+<a class="btn" href="">SE ALLE NYHEDER</a>
+</section>
+
+<div class="info-bar">
+    <img src="/billeder/info.png" alt="info">
+</div>
+
+<section class="mest-solgte">
+<h2>MEST SOLGTE</h2>
+<span></span>
+<a class="btn" href="">SE ALLE MEST SOLGTE</a>
+</section>
+
+<section class="info-lagersalg">
+    <img class="info-img2" src="/billeder/ol.png" alt="lager">
+    <div class="info-text2">
+<p><span class="info-title">A Good Case</span> afholder et fysisk lagersalg, hvor de hver uge sælger et skiftende udvalg af specialøl til lave priser. Her kan kunder finde både kendte og unikke øl – også produkter, som ikke er tilgængelige online. Sortimentet varierer løbende, fordi øllene er opkøbt for at blive reddet før “best before”-datoen, hvilket betyder, at der altid er nye varer at gå på opdagelse i.
+Lagersalget fungerer som en mulighed for at gøre et godt køb, da de tilbyder skarpe tilbud og smagekasser til markedets bedste priser, samtidig med at man støtter en bæredygtig idé om at reducere spild af kvalitetsøl.</p>
+</div>
+</section>
+
+</Layout>
+
+<style>
+    :global(body) {
+        position: relative;
+    }
+
+    .hero,
+    .info,
+    .nyheder,
+    .info-bar,
+    .info-lagersalg {
+        max-width: 1200px;
+        margin-inline: auto;
+    }
+
+    .bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    .bg img {
+        width: 100%;
+        height: auto;
+        display: block;
+        width: 100%;
+        opacity: 0.6;
+        align-items: center;
+    
+    }
+
+    .hero {
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    .hero::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 15px;
+        background: linear-gradient(to bottom, #468969 0 50%, #3B7057 50% 100%);
+    }
+
+    .hero img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .info {
+        display: flex;
+        align-items: stretch;
+        gap: 0;
+        margin-top: 200px;
+    }
+
+    .info-img {
+        width: min(100%, 420px);
+        height: auto;
+        flex: 0 0 auto;
+        
+    }
+
+    .info-text {
+        flex: 1;
+        font-size: 20px;
+        font-weight: 300;
+        line-height: 150%;
+    }
+
+    .info-text,
+    .info-text2 {
+        background-color: #ffffff;
+        padding: 65px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+    }
+
+    .info-title {
+        color: #3B7057;
+        font-size: 32px;
+        font-weight: 300;
+    }
+
+    .nyheder h2 {
+        display: flex;
+        font-size: 42px;
+        text-decoration: underline;
+        font-weight: 100;
+        color: #3B7057;
+        margin-top: 200px;
+        justify-content: center;
+    }
+
+    .nyheder {
+        text-align: center;
+    }
+
+    .nyheder .btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #ffffff;
+        color: #3B7057;
+        text-decoration: none;
+        border: #3B7057 solid 2px;
+        border-radius: 10px;
+        font-weight: 300;
+    }
+
+      .nyheder .btn:hover {
+        background-color: #3B7057;
+        color: #ffffff;
+      }
+
+    .info-bar {
+        margin-top: 200px;
+        text-align: center;
+    }
+
+    .info-bar img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .mest-solgte h2 {
+        display: flex;
+        font-size: 42px;
+        text-decoration: underline;
+        font-weight: 100;
+        color: #3B7057;
+        margin-top: 200px;
+        justify-content: center;
+    }
+
+    .mest-solgte {
+        text-align: center;
+    }
+
+    .mest-solgte .btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #ffffff;
+        color: #3B7057;
+        text-decoration: none;
+        border: #3B7057 solid 2px;
+        border-radius: 10px;
+        font-weight: 300;
+    }
+
+      .mest-solgte .btn:hover {
+        background-color: #3B7057;
+        color: #ffffff;
+      }
+
+    .info-lagersalg {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: stretch;
+        gap: 0;
+        margin-top: 200px;
+    }
+
+    .info-img2 {
+        width: min(100%, 420px);
+        height: auto;
+        flex: 0 0 auto;
+    }
+
+    .info-text2 {
+        flex: 1;
+        font-size: 20px;
+        font-weight: 300;
+        line-height: 150%;
+    }
+
+    @media (max-width: 700px) {
+        .info,
+        .info-lagersalg {
+            flex-direction: column;
+            align-items: stretch;
+        }
+    }
+</style>
