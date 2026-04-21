@@ -1,3 +1,227 @@
 ---
-import layout from '../layouts/Layout.astro';
----
+//@ts-nocheck 
+import Layout from "../layouts/Layout.astro";
+import Pcard from "../components/p-card.astro";
+// API endpoint fra Supabase (henter hele tabellen)
+const endpoint =
+  "https://majobbnhdeqzlgfmufao.supabase.co/rest/v1/final-beerlist?select=*";
+
+  const options={
+  headers: {
+    apikey:"sb_publishable_YFsAaTZu3QhYeyu5exnqCg_x9eNbtkN",
+  }
+}
+const data = await fetch(endpoint, options).then((response) => response.json());
+console.log(data);
+--- 
+
+
+
+<Layout>
+      <!-- øverste sektion -->
+  <div class="intro">
+  <h1>ØLSORTIMENT</h1>
+
+  <p>
+    Vi tilbyder specialøl fra ind- og udland med små fejl eller kort dato – til lavere priser.
+    <br />
+    Du sparer penge og hjælper miljøet.
+  </p>
+
+  <p class="slogan">LESS WASTE – GREAT TASTE!</p>
+
+  <div class="filters">
+    <button>IPA / PALE ALE</button>
+    <button>LAGER / PILSNER</button>
+    <button>SYRLIGHED</button>
+    <button>MØRK</button>
+    <button>LYS</button>
+    <button>ALKOHOLFRI</button>
+  </div>
+</div>
+<div class="toolbar">
+
+  <div class="left">
+    <button class="sorter">Sorter</button>
+    <button class="filter">Filter</button>
+  </div>
+
+  <div class="center">
+    {data.length} produkter
+  </div>
+
+  <div class="right">
+  <img src="component-1.svg" class="icon" />
+    <img src="component-2.svg" class="icon" />
+    <img src="component-3.svg" class="icon" />
+  </div>
+
+</div>
+</div>
+  <!-- produkterne  -->
+  <div class="container">
+    <section>
+  {data.map((product) => <Pcard product={product} />)}
+    </section>
+  </div>
+
+</Layout>
+
+<style>
+     /* linket */
+    .card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+    /* øverste sektion */
+.intro {
+  text-align: center;
+   padding: 40px 20px 40px;
+}
+
+/* overskift */
+.intro h1 {
+  font-size: 32px;
+  color: #2e7d32;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  text-decoration: underline;
+}
+
+/* brødtekst */
+.intro p {
+  max-width: 600px;
+  margin: 0 auto 10px;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* Less waste - great taste*/
+.intro .slogan {
+  color: #2e7d32;
+  font-weight: bold;
+  margin-top: 20px;
+}
+/* filter knapperne */
+.filters {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  max-width: 350px;
+  margin: 25px auto 0;
+}
+
+.filters button {
+  border: 2px solid #2e7d32;
+  background: #E3F2E1;
+  color: #2e7d32;
+  border-radius: 10px;
+  font-size: 12px;   
+  height: 32px;        
+  width: 100%;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.filters button:hover {
+  background: #2e7d32;
+  color: white;
+      transform: scale(1.02);
+}
+/* ---------- TOOLBAR ---------- */
+
+.toolbar {
+  display: grid;
+   grid-template-columns: 1fr auto 1fr; 
+  align-items: center;
+padding: 10px 10px;
+   margin-bottom: 10px;
+}
+.left {
+  display: flex;
+  gap: 6px;
+    justify-self: start; 
+}
+.sorter, .filter {
+  border: 2px solid #2e7d32;
+  background: transparent;
+  color: #2e7d32;
+  padding: 3px 8px;     
+  border-radius: 7px;  
+
+  font-size: 13px;
+  cursor: pointer;
+}
+.center {
+  text-align: center;
+  font-size: 12px;   
+  color: #2e7d32;
+}
+.right {
+  display: flex;
+  gap: 6px;       
+  align-items: center;
+    justify-self: end;
+}
+.icon {
+  width: 15px;       
+  height: 15px;
+  object-fit: contain;
+  cursor: pointer;
+  opacity: 0.5;
+    opacity: 1;
+}
+
+/* product card wrapper  */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+section {
+   display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  justify-items: center;  
+}
+
+
+
+@media (min-width: 1200px) {
+    /* ---- filter knapperne ---- */
+   .filters {
+    grid-template-columns: repeat(6, 1fr);
+    max-width: 1000px;
+  }
+  .filters button {
+  font-size: 13px;  }  
+
+     /* ---- toolbar ---- */
+  .toolbar {
+    padding: 15px 105px; 
+  }
+  .sorter, .filter {
+    padding: 6px 14px;  
+    font-size: 14px;
+  }
+  .center {
+    font-size: 16px;
+  }
+  .icon {
+    width: 22px;
+    height: 22px; 
+  }   
+   /* product card wrapper  */
+.container {
+  margin: 0 auto;
+  padding: 0 0;
+}
+
+section {
+   display: grid;
+  grid-template-columns: repeat(4, 340px);
+  justify-content: center; /* 🔥 centrer hele grid */
+}
+
+}
+</style>
