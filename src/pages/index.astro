@@ -1,5 +1,18 @@
 ---
+//@ts-nocheck 
 import Layout from '../layouts/Layout.astro';
+import Pcard from "../components/p-card.astro";
+
+const endpoint =
+  "https://majobbnhdeqzlgfmufao.supabase.co/rest/v1/final-beerlist?select=*";
+
+const options = {
+  headers: {
+    apikey: "sb_publishable_YFsAaTZu3QhYeyu5exnqCg_x9eNbtkN",
+  },
+};
+
+const data = await fetch(endpoint, options).then((res) => res.json());
 ---
 
 <Layout>
@@ -21,9 +34,20 @@ Virksomheden fungerer som et bindeled mellem bryggerier og forbrugere og har et 
 </section>
 
 <section class="nyheder">
-<h2>NYHEDER</h2>
-<span></span>
-<a class="btn" href="">SE ALLE NYHEDER</a>
+  <h2>NYHEDER</h2>
+  <span></span>
+
+  <div class="related-container">
+    <div class="related-grid">
+      {data
+        .slice(0, 4) // 👉 de 4 første = "nyheder"
+        .map((item) => (
+          <Pcard product={item} />
+      ))}
+    </div>
+  </div>
+
+  <a class="btn" href="/products">SE ALLE NYHEDER</a>
 </section>
 
 <div class="info-bar">
@@ -31,9 +55,20 @@ Virksomheden fungerer som et bindeled mellem bryggerier og forbrugere og har et 
 </div>
 
 <section class="mest-solgte">
-<h2>MEST SOLGTE</h2>
-<span></span>
-<a class="btn" href="">SE ALLE MEST SOLGTE</a>
+  <h2>MEST SOLGTE</h2>
+  <span></span>
+
+  <div class="related-container">
+    <div class="related-grid">
+      {data
+        .slice(4, 8) // 👉 næste 4 (fake "mest solgte")
+        .map((item) => (
+          <Pcard product={item} />
+      ))}
+    </div>
+  </div>
+
+  <a class="btn" href="/products">SE ALLE MEST SOLGTE</a>
 </section>
 
 <section class="info-lagersalg">
@@ -85,7 +120,7 @@ Lagersalget fungerer som en mulighed for at gøre et godt køb, da de tilbyder s
 
     .hero img {
         width: 100%;
-           height: 65vh;
+           height: 100%;
         display: block;
     }
 
@@ -105,7 +140,7 @@ Lagersalget fungerer som en mulighed for at gøre et godt køb, da de tilbyder s
 
     .info-text {
         flex: 1;
-        font-size: 20px;
+        font-size: 19px;
         font-weight: 300;
         line-height: 150%;
     }
@@ -121,13 +156,13 @@ Lagersalget fungerer som en mulighed for at gøre et godt køb, da de tilbyder s
 
     .info-title {
         color: #3B7057;
-        font-size: 32px;
+        font-size: 22px;
         font-weight: 300;
     }
 
     .nyheder h2 {
         display: flex;
-        font-size: 42px;
+        font-size: 35px;
         text-decoration: underline;
         font-weight: 100;
         color: #3B7057;
@@ -169,7 +204,7 @@ Lagersalget fungerer som en mulighed for at gøre et godt køb, da de tilbyder s
 
     .mest-solgte h2 {
         display: flex;
-        font-size: 42px;
+      font-size: 35px;
         text-decoration: underline;
         font-weight: 100;
         color: #3B7057;
@@ -214,7 +249,7 @@ Lagersalget fungerer som en mulighed for at gøre et godt køb, da de tilbyder s
 
     .info-text2 {
         flex: 1;
-        font-size: 20px;
+        font-size: 19px;
         font-weight: 300;
         line-height: 150%;
     }
@@ -225,5 +260,75 @@ Lagersalget fungerer som en mulighed for at gøre et godt køb, da de tilbyder s
             flex-direction: column;
             align-items: stretch;
         }
+
     }
+     
+    /* ---- Desktop---- */
+@media (min-width: 1200px) {
+ 
+    .hero img {
+           height: 70vh;
+    }
+      .info-title {
+        font-size: 32px;
+    }
+         .info-text2, .info-text {
+        font-size: 20px;
+    }
+        .mest-solgte h2, .nyheder h2 {
+        font-size: 42px;
+    }
+    
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+
+  /* ----- NYHEDER og MEST-SOLGTE SEKTION ----- */
+
+}
+.related-container {
+  max-width: 1200px;  
+  margin: 40px auto;
+  padding: 0 45px;
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: 1fr; 
+  gap: 1.5rem;
+  justify-items: center;
+}
+
+/* desktop */
+@media (min-width: 1200px) {
+  .related-grid {
+    grid-template-columns: repeat(4, 340px);
+    justify-content: center;
+  }
+}
+
+/* tablet */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .related-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 </style>
+<script>
+      /* ----- gør så på mobil kun bliver vist 1 card, tablet= 2, desktop = 4 ----- */
+const grids = document.querySelectorAll(".related-grid");
+
+grids.forEach((grid) => {
+  const cards = grid.querySelectorAll<HTMLElement>(":scope > *");
+
+  cards.forEach((card, index) => {
+    if (window.innerWidth < 768) {
+      card.style.display = index < 1 ? "block" : "none";
+    } else if (window.innerWidth < 1200) {
+      card.style.display = index < 2 ? "block" : "none";
+    } else {
+      card.style.display = "block";
+    }
+  });
+});
+
+</script>
