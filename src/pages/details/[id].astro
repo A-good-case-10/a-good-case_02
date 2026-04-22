@@ -2,6 +2,8 @@
 //@ts-nocheck
 import Layout from "../../layouts/Layout.astro";
 import Pcard from "../../components/p-card.astro";
+import Header from "../components/header.astro";
+import Footer from "../components/footer.astro";
 
 // bygger alle produktsider + sender data med
 export async function getStaticPaths() {
@@ -26,6 +28,7 @@ export async function getStaticPaths() {
 const { product, data } = Astro.props;
 ---
 <Layout>
+    <Header />
 <div class="product">
 
   <!-- Produkt billede -->
@@ -172,6 +175,7 @@ const { product, data } = Astro.props;
 
   </div>
 </div>
+</Layout>
 </Layout>
   <!------- STYLING ------->
 <style>
