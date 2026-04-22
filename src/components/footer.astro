@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="da">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Good Case Footer</title>
-    <link rel="stylesheet" href="footer.css">
-  </head>
-  <body>
+
     <footer class="site-footer">
       <div class="site-footer__inner">
         <section class="site-footer__column" aria-labelledby="footer-contact">
@@ -74,8 +66,6 @@
         <p>© 2026 A Good Case ApS</p>
       </div>
     </footer>
-  </body>
-</html>
 
 <style>
 html,
@@ -87,7 +77,7 @@ body {
 
 body {
   min-height: 100vh;
-  padding: clamp(16px, 3vw, 40px);
+  padding: 0;
   font-family: "Futura PT", "Avenir Next", "Helvetica Neue", sans-serif;
   color: #151515;
 }
@@ -99,12 +89,10 @@ body {
 }
 
 .site-footer {
-  width: min(100%, 1728px);
-  margin: 0 auto;
+ width: 100%;
+  margin: 0;
   padding: clamp(56px, 6vw, 92px) clamp(28px, 4.8vw, 84px) 28px;
   background: #ffffff;
-  border: 1px solid rgba(17, 17, 17, 0.08);
-  border-radius: 28px;
   box-shadow: 0 20px 50px rgba(17, 17, 17, 0.08);
 }
 
@@ -271,14 +259,11 @@ body {
 }
 
 @media (max-width: 520px) {
-  body {
-    padding: 12px;
-  }
+ 
 
   .site-footer {
     padding-top: 38px;
     padding-inline: 16px;
-    border-radius: 20px;
   }
 
   .site-footer__heading {

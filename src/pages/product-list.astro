@@ -2,8 +2,6 @@
 //@ts-nocheck 
 import Layout from "../layouts/Layout.astro";
 import Pcard from "../components/p-card.astro";
-import Header from "../components/header.astro";
-import Footer from "../components/footer.astro";
 // API endpoint fra Supabase (henter hele tabellen)
 const endpoint =
   "https://majobbnhdeqzlgfmufao.supabase.co/rest/v1/final-beerlist?select=*";
@@ -20,7 +18,7 @@ console.log(data);
 
 
 <Layout>
-  <Header />
+  <main>
       <!-- øverste sektion -->
   <div class="intro">
   <h1>ØLSORTIMENT</h1>
@@ -67,16 +65,12 @@ console.log(data);
   {data.map((product) => <Pcard product={product} />)}
     </section>
   </div>
-  <Footer />
+  </main>
 </Layout>
 
 <style>
-     /* linket */
-    .card-link {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
+
+   
     /* øverste sektion */
 .intro {
   text-align: center;
@@ -177,20 +171,18 @@ padding: 10px 10px;
 
 /* product card wrapper  */
 .container {
-  max-width: 1200px;
+ max-width: 1200px;  
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 45px;
 }
 section {
-   display: grid;
+  display: grid; 
   grid-template-columns: 1fr;
-  gap: 1rem;
-  justify-items: center;  
-    margin-bottom: 80px;
+  gap: 1.5rem;
+  justify-items: center; 
 }
 
-
-
+  /* ---- Desktop---- */
 @media (min-width: 1200px) {
     /* ---- filter knapperne ---- */
    .filters {
@@ -227,5 +219,46 @@ section {
   justify-content: center; /* 🔥 centrer hele grid */
 }
 
+}
+  /* ---- Ipad---- */
+
+@media (min-width: 768px) and (max-width: 1199px) {
+
+  /* ---- filter knapper ---- */
+  .filters {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 600px;
+  }
+
+  .filters button {
+    font-size: 13px;
+    height: 36px;
+  }
+
+  /* ---- toolbar ---- */
+  .toolbar {
+    padding: 10px 40px;
+  }
+
+  .center {
+    font-size: 14px;
+  }
+
+  .icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* ---- PRODUKTER (det vigtigste) ---- */
+  section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 1.5rem;
+    justify-items: center;
+  }
+
+  .container {
+    padding: 0 30px;
+  }
 }
 </style>

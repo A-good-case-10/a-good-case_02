@@ -3,14 +3,15 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout>
+   
 <div class="bg">
     <img src="/billeder/langarm.png" alt="baggrund">
 </div>
-
+  <main>
     <section class="hero">
 <img src="/billeder/hero.png" alt="hero">
     </section>
-  
+ 
 <section class="info">
 <img class="info-img" src="/billeder/mand.png" alt="info">
 <div class="info-text">
@@ -42,22 +43,11 @@ Virksomheden fungerer som et bindeled mellem bryggerier og forbrugere og har et 
 Lagersalget fungerer som en mulighed for at gøre et godt køb, da de tilbyder skarpe tilbud og smagekasser til markedets bedste priser, samtidig med at man støtter en bæredygtig idé om at reducere spild af kvalitetsøl.</p>
 </div>
 </section>
-
+</main>
 </Layout>
 
 <style>
-    :global(body) {
-        position: relative;
-    }
-
-    .hero,
-    .info,
-    .nyheder,
-    .info-bar,
-    .info-lagersalg {
-        max-width: 1200px;
-        margin-inline: auto;
-    }
+   
 
     .bg {
         position: absolute;
@@ -95,7 +85,7 @@ Lagersalget fungerer som en mulighed for at gøre et godt køb, da de tilbyder s
 
     .hero img {
         width: 100%;
-        height: auto;
+           height: 65vh;
         display: block;
     }
 
