@@ -2,8 +2,6 @@
 //@ts-nocheck
 import Layout from "../../layouts/Layout.astro";
 import Pcard from "../../components/p-card.astro";
-import Header from "../components/header.astro";
-import Footer from "../components/footer.astro";
 
 // bygger alle produktsider + sender data med
 export async function getStaticPaths() {
@@ -28,7 +26,7 @@ export async function getStaticPaths() {
 const { product, data } = Astro.props;
 ---
 <Layout>
-    <Header />
+  <main >
 <div class="product">
 
   <!-- Produkt billede -->
@@ -175,16 +173,19 @@ const { product, data } = Astro.props;
 
   </div>
 </div>
-</Layout>
+
+</main>
 </Layout>
   <!------- STYLING ------->
 <style>
 	/* Hele container */
+
 .product {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
   padding: 20px;
+    margin-top: 480px;
 }
 /* produkt billede  */
 .image img {
@@ -334,9 +335,9 @@ const { product, data } = Astro.props;
 /* --- Flere detaljer --- */
 .details-container {
   margin-top: 30px;
-  max-width: 500px;   /* 🔥 gør den smallere */
+  max-width: 500px;   
   margin-left: auto;
-  margin-right: auto; /* 🔥 centrerer */
+  margin-right: auto; 
 }
 
 /* overskift labels */
@@ -385,19 +386,17 @@ margin-bottom: 5px;
 .related-container {
   max-width: 1200px;  
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 45px;
 }
   
 .related-grid {
-   display: grid;
+   display: grid; 
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: 1.5rem;
   justify-items: center; 
+  
 }
-.related {
-margin-top: 60px;
-  padding: 20px 0; /* 🔥 fjern side padding */
-}
+
 
 .related h2 {
   text-align: center;
@@ -421,7 +420,7 @@ margin-top: 60px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding-top: 100px;         /* skubber billedet længere ned  */
+    padding-top: 150px;         /* skubber billedet længere ned  */
   }
   .image img {
     max-width: 450px;
@@ -452,7 +451,19 @@ margin-top: 60px;
   justify-content: center;
   gap: 1.5rem;
 }
-  
-  
+  }
+  @media (min-width: 768px) and (max-width: 1199px) {
+
+  .related-grid {
+    display: grid; 
+      grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .related-container {
+    padding: 0 30px;
+  }
+
+
 }
 </style>
